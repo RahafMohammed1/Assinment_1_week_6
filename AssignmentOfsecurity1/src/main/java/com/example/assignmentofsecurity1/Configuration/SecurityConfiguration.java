@@ -37,10 +37,9 @@ public class SecurityConfiguration {
                 .and()
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests()
-
                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll()
-
-                .requestMatchers("/api/v1/auth/admin").hasAuthority("ADMIN")
+                .requestMatchers("/api/v1/blog/get-all").permitAll()
+                .requestMatchers("/api/v1/blog/get","/api/v1/blog/get-by-title/{title}","/api/v1/blog/get-by-id/{blog_id}","/api/v1/blog/add","/api/v1/blog/update/{blog_id}","/api/v1/blog/delete/{blog_id}").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .logout().logoutUrl("/api/v1/auth/logout")
